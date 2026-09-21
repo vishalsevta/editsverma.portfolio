@@ -21,8 +21,9 @@
 /* =====================================================================
    editsverma portfolio - CONTENT (yaha se sab kuch badal sakte ho)
    Notepad me kholo -> badlo -> save -> phir hosting pe file dobara upload.
-   Rules: text 'single quotes' ke andar likho, har line ke end me comma (,)
-   rakho, kisi video ko chhupana ho to us line me  show: false  likh do.
+   Videos / WhatsApp number / numbers ke liye is file ko chhoone ki zarurat nahi:
+   site ke link ke end me  #admin  lagao (Owner mode) aur wahi se badlo.
+   Rules: text 'single quotes' ke andar likho, har line ke end me comma (,) rakho.
    ===================================================================== */
 window.SITE = {
   brand: 'editsverma',
@@ -38,11 +39,9 @@ window.SITE = {
     {n: 1000, label: 'Clips edited'}
   ],
 
-  contact: {
-    whatsapp:  'https://wa.me/910000000000',   /* 91 + apna number, bina + ya space ke */
-    instagram: 'https://instagram.com/',       /* apna profile link */
-    email:     'mailto:hello@example.com'      /* apna email */
-  },
+  /* Contact ab site ke Owner mode se badalta hai (link ke end me #admin lagao, Details tab).
+     Yaha khali chhod do. Jab tak number nahi daala, WhatsApp button visitors ko nahi dikhta. */
+  contact: {whatsapp: '', instagram: '', email: ''},
 
   toolsHeading: 'Apps & software|I work with',  /* '|' se line toot-ti hai */
 
@@ -54,8 +53,8 @@ window.SITE = {
   ],
   /* Editing software (balls + "Editing software" row me dikhte hain) */
   software: [
-    {name: 'Premiere Pro',  logo: 'pr'},
-    {name: 'After Effects', logo: 'ae'},
+    {name: 'Premiere Pro',  logo: 'pr', ball: false},   /* ball: false = sirf software row me, balls pe nahi */
+    {name: 'After Effects', logo: 'ae', ball: false},
     {name: 'AI',            logo: 'ai'}
   ],
 
@@ -215,6 +214,44 @@ button{font:inherit;color:inherit;cursor:pointer}
 .vicon.ghost{position:absolute;left:50%;top:50%;margin:-35px 0 0 -35px;background:transparent;border:1.5px solid rgba(255,255,255,.24);backdrop-filter:none}
 .vicon.ghost::after{border-left-color:rgba(255,255,255,.32)}
 
+/* ---------- owner mode (#admin) ---------- */
+.btn[hidden]{display:none}
+.btn.unset{opacity:.45}
+.adm-pill{position:fixed;left:14px;bottom:max(14px,env(safe-area-inset-bottom));z-index:190;border:0;border-radius:999px;background:var(--gold);color:#180b00;font-weight:700;padding:12px 18px;box-shadow:0 8px 26px rgba(0,0,0,.5)}
+.adm{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.72);display:grid;place-items:end center}
+.adm[hidden],.adm-pill[hidden]{display:none}
+@media(min-width:700px){.adm{place-items:center}}
+.adm-box{width:min(600px,100%);max-height:92vh;max-height:92svh;overflow:auto;background:#121012;border:1px solid var(--line);border-radius:22px 22px 0 0;padding:18px 18px 28px;display:grid;gap:12px;align-content:start}
+@media(min-width:700px){.adm-box{border-radius:22px}}
+.adm-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.adm-top h2{font-family:var(--display);font-weight:400;font-size:1.9rem;text-transform:uppercase}
+.adm-tabs{display:flex;gap:8px}
+.adm-tabs button{flex:1;border:1px solid var(--line);background:transparent;border-radius:12px;padding:10px;font-weight:600}
+.adm-tabs button.on{background:var(--ink);color:#000;border-color:var(--ink)}
+.adm-pane{display:grid;gap:12px}
+.adm-pane[hidden]{display:none}
+.adm-pane label{display:grid;gap:6px;font-size:.9rem;color:var(--muted)}
+.adm-pane label[hidden]{display:none}
+.adm-pane input,.adm-pane select{background:#1d1a1c;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;font-size:1rem;min-width:0;width:100%}
+.adm-pane h3{font-family:var(--display);font-weight:400;font-size:1.3rem;text-transform:uppercase;margin-top:8px}
+.adm-pane h4{font-size:.95rem;color:var(--gold);margin-top:10px}
+.adm-help{color:var(--muted);font-size:.9rem}
+.adm-msg{min-height:1.3em;font-size:.92rem;color:var(--gold);overflow-wrap:anywhere}
+.adm-msg.err{color:#ff9c8c}
+.adm-btn{border:1px solid var(--line);background:transparent;border-radius:999px;padding:11px 20px;font-weight:600;justify-self:start}
+.adm-btn.solid{background:var(--red);border-color:var(--red);color:#fff}
+.adm-btn[disabled]{opacity:.5}
+.a-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.a-meta{display:grid;min-width:0}.a-meta b{overflow-wrap:anywhere}.a-meta small{color:var(--muted)}
+.adm-pane details{border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--muted);font-size:.92rem}
+.adm-pane details summary{cursor:pointer;color:var(--ink);font-weight:600}
+.adm-pane details ol{padding-left:1.2em;margin-top:8px;display:grid;gap:6px}
+.adm-row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.card-tools{position:absolute;top:8px;left:8px;right:8px;z-index:7;display:flex;justify-content:space-between;gap:6px}
+.card-tools button{border:0;border-radius:999px;background:rgba(0,0,0,.78);color:#fff;padding:6px 13px;font-size:.85rem;font-weight:600}
+.card-tools .mv{display:flex;gap:6px}
+.card-tools .del{color:#ff8a7a}.card-tools .del.sure{background:#b3170f;color:#fff}
+
 /* ---------- contact ---------- */
 .contact{text-align:left}
 .contact .h2{max-width:11em}
@@ -302,6 +339,61 @@ footer{padding:28px var(--pad) 40px;color:var(--muted);font-size:.9rem;border-to
 
 <footer id="foot">&copy; 2026 editsverma</footer>
 
+<button class="adm-pill" id="adm-pill" type="button" hidden>Owner mode</button>
+<div class="adm" id="adm" hidden>
+  <div class="adm-box" role="dialog" aria-modal="true" aria-labelledby="adm-h">
+    <div class="adm-top"><h2 id="adm-h">Owner mode</h2><button type="button" class="adm-btn" id="adm-x">Band karo</button></div>
+    <div class="adm-tabs"><button type="button" data-tab="videos" class="on">Videos</button><button type="button" data-tab="details">Details</button><button type="button" data-tab="publish">Publish</button></div>
+
+    <div class="adm-pane" data-pane="videos">
+      <p class="adm-help">Pehle video ko YouTube (Unlisted) ya Google Drive pe upload karo, phir uska link yaha paste karo. Drive ka link "Anyone with the link" hona chahiye.</p>
+      <label>Section<select id="a-sec"></select></label>
+      <label id="a-app-w">App<select id="a-app"></select></label>
+      <label id="a-tag-w">Type<select id="a-tag"><option>Educational</option><option>Solar panel</option></select></label>
+      <label>Video ka naam<input id="a-title" maxlength="70" autocomplete="off"></label>
+      <label>Video ka link (Drive ya YouTube)<input id="a-link" inputmode="url" autocomplete="off" placeholder="https://"></label>
+      <label>Kitne videos hain (optional)<input id="a-qty" inputmode="numeric" maxlength="3" autocomplete="off"></label>
+      <p class="adm-msg" id="a-msg" role="status"></p>
+      <button type="button" class="adm-btn solid" id="a-add">Video add karo</button>
+      <h3>Abhi ke videos</h3>
+      <div id="a-list"></div>
+    </div>
+
+    <div class="adm-pane" data-pane="details" hidden>
+      <label>WhatsApp number<input id="d-wa" inputmode="tel" autocomplete="off" placeholder="98XXXXXXXX"></label>
+      <p class="adm-help" id="d-wa-prev"></p>
+      <label>Instagram username<input id="d-ig" autocomplete="off" placeholder="editsverma"></label>
+      <label>Email<input id="d-mail" inputmode="email" autocomplete="off" placeholder="aap@gmail.com"></label>
+      <h3>Numbers</h3>
+      <div class="adm-row3" id="d-stats"></div>
+      <p class="adm-help">Jo bhi likhoge wo site pe turant dikhega. Website pe live karne ke liye Publish tab use karo.</p>
+    </div>
+
+    <div class="adm-pane" data-pane="publish" hidden>
+      <p class="adm-help">Abhi ke badlav sirf is browser me hain. Website pe live karne ke liye neeche se ek tareeka chuno.</p>
+      <h3>Tareeka 1: ek click me</h3>
+      <label>GitHub token<input id="p-token" type="password" autocomplete="off" placeholder="github_pat_..."></label>
+      <button type="button" class="adm-btn solid" id="p-pub">Website pe publish karo</button>
+      <button type="button" class="adm-btn" id="p-forget">Token bhulo</button>
+      <details><summary>Token kaise banate hain? (ek baar ka kaam)</summary>
+        <ol>
+          <li>GitHub kholo. Upar right me profile photo, phir Settings.</li>
+          <li>Left menu ke sabse neeche Developer settings, phir Personal access tokens, phir Fine-grained tokens.</li>
+          <li>Generate new token dabao. Naam: editsverma. Expiration: 90 days.</li>
+          <li>Repository access me Only select repositories chuno aur apni portfolio repository select karo.</li>
+          <li>Permissions me Repository permissions kholo, Contents ko Read and write karo.</li>
+          <li>Generate token dabao. Jo token dikhe (github_pat_ se shuru) use copy karke upar paste karo.</li>
+        </ol>
+        <p style="margin-top:8px">Token kisi ko mat dena. Ye sirf isi browser me save hota hai.</p>
+      </details>
+      <h3>Tareeka 2: file download karke</h3>
+      <button type="button" class="adm-btn" id="p-dl">config.json download karo</button>
+      <p class="adm-help">Phir GitHub pe apni repository kholo, Add file, Upload files, ye config.json daalo aur Commit changes dabao.</p>
+      <p class="adm-msg" id="p-msg" role="status"></p>
+    </div>
+  </div>
+</div>
+
 <script>/**
  * @license
  * Copyright 2010-2021 Three.js Authors
@@ -315,6 +407,15 @@ footer{padding:28px var(--pad) 40px;color:var(--muted);font-size:.9rem;border-to
 'use strict';
 const SITE = window.SITE;
 const logoSrc = k => !k ? '' : ((window.LOGOS && window.LOGOS[k]) || k);
+const ADMIN = /(^|[#&])admin\b/.test(location.hash);
+const defaultsCfg = () => ({contact: {whatsapp: '', instagram: '', email: ''}, stats: (SITE.stats || []).map(s => s.n),
+  videos: JSON.parse(JSON.stringify(SITE.videos || [])).map((v, i) => Object.assign({id: 'd' + i}, v))});
+let CFG = defaultsCfg(); SITE.videos = CFG.videos;
+let HIDDEN = new Set();
+const waUrl = v => { v = String(v || '').replace(/\D/g, ''); if (v.length === 10) v = '91' + v; return v.length >= 11 && v.length <= 15 ? 'https://wa.me/' + v : ''; };
+const igUrl = v => { v = String(v || '').trim(); if (!v) return ''; if (/^https?:\/\//i.test(v)) return v; v = v.replace(/^@/, '').replace(/[^\w.]/g, ''); return v ? 'https://instagram.com/' + v : ''; };
+const mailUrl = v => { v = String(v || '').trim(); return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v) ? 'mailto:' + v : ''; };
+function contactLinks() { const c = CFG.contact || {}, d = SITE.contact || {}; return {whatsapp: waUrl(c.whatsapp) || d.whatsapp || '', instagram: igUrl(c.instagram) || d.instagram || '', email: mailUrl(c.email) || d.email || ''}; }
 
 const $ = (s, r = document) => r.querySelector(s);
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -340,7 +441,28 @@ function whenVisible(node, loop, threshold = 0.05) {
   new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? loop.start() : loop.stop()), {threshold}).observe(node);
 }
 
-/* ---------- content from data.js ---------- */
+/* ---------- content ---------- */
+const fmtN = n => n >= 1000 ? (n / 1000) + 'K+' : n + '+';
+let statIO = null;
+function renderStats() {
+  const ul = $('#stats'); ul.textContent = '';
+  (SITE.stats || []).forEach((s, i) => { const n = CFG.stats && Number.isFinite(+CFG.stats[i]) ? +CFG.stats[i] : s.n; const li = el('li'), b = el('b', null, fmtN(n)); b.dataset.n = n; li.append(b, el('span', null, s.label)); ul.appendChild(li); });
+  if (!statIO) statIO = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; statIO.unobserve(e.target); if (reduce) return;
+    const n = +e.target.dataset.n, t0 = performance.now();
+    const tick = now => { const p = clamp((now - t0) / 1300, 0, 1); e.target.textContent = fmtN(Math.round(n * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }), {threshold: .6});
+  ul.querySelectorAll('b').forEach(b => statIO.observe(b));
+}
+function renderContact() {
+  const L = contactLinks();
+  document.querySelectorAll('[data-link]').forEach(a => {
+    const u = L[a.dataset.link];
+    if (u) { a.href = u; a.hidden = false; a.classList.remove('unset'); }
+    else { a.removeAttribute('href'); a.hidden = !ADMIN; a.classList.add('unset'); }
+  });
+}
 function fillContent() {
   const S = SITE;
   document.title = S.brand + ' | ' + S.role + ' Portfolio';
@@ -350,23 +472,13 @@ function fillContent() {
   $('#about-text').textContent = S.about;
   const name = $('#name'); name.setAttribute('aria-label', S.brand); name.textContent = '';
   [...S.brand].forEach((c, i) => { const s = el('span', 'ch', c); s.setAttribute('aria-hidden', 'true'); s.style.animationDelay = (0.45 + i * 0.05) + 's'; name.appendChild(s); });
-  const fmt = n => n >= 1000 ? (n / 1000) + 'K+' : n + '+';
-  const ul = $('#stats');
-  (S.stats || []).forEach(s => { const li = el('li'); const b = el('b', null, fmt(s.n)); b.dataset.n = s.n; li.append(b, el('span', null, s.label)); ul.appendChild(li); });
-  const io = new IntersectionObserver(es => es.forEach(e => {
-    if (!e.isIntersecting) return; io.unobserve(e.target);
-    if (reduce) return;
-    const n = +e.target.dataset.n, t0 = performance.now();
-    const tick = now => { const p = clamp((now - t0) / 1300, 0, 1); e.target.textContent = fmt(Math.round(n * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(tick); };
-    requestAnimationFrame(tick);
-  }), {threshold: .6});
-  ul.querySelectorAll('b').forEach(b => io.observe(b));
+  renderStats();
   const th = $('#tools-h'); th.textContent = '';
   String(S.toolsHeading || 'Apps & tools|I work with').split('|').forEach((p, i) => { if (i) th.appendChild(document.createElement('br')); th.appendChild(document.createTextNode(p)); });
   const tl = $('#tools-list'); [].concat(S.apps || [], S.software || []).forEach(t => tl.appendChild(el('li', null, t.name)));
   const sw = $('#sw-list');
   (S.software || []).forEach(t => { const li = el('li', 'chip'), box = el('span', 'vlogo big'), im = new Image(); im.alt = ''; im.src = logoSrc(t.logo); box.appendChild(im); li.append(box, el('span', null, t.name)); sw.appendChild(li); });
-  document.querySelectorAll('[data-link]').forEach(a => a.href = (S.contact && S.contact[a.dataset.link]) || '#contact');
+  renderContact();
   $('#foot').textContent = '\u00A9 ' + new Date().getFullYear() + ' ' + S.brand;
 }
 
@@ -628,7 +740,7 @@ function initTools() {
   const loadLogo = url => new Promise(res => { if (!url) return res(null); const im = new Image(); im.crossOrigin = 'anonymous'; im.onload = () => res(im); im.onerror = () => res(null); im.src = url; });
 
   async function build() {
-    const list = [].concat(SITE.apps || [], SITE.software || []); const base = list.length; if (!base) return;
+    const list = [].concat(SITE.apps || [], (SITE.software || []).filter(t => t.ball !== false)); const base = list.length; if (!base) return;
     const items = []; for (let i = 0; i < Math.max(12, base); i++) items.push(list[i % base]);
     const imgs = await Promise.all(items.map(it => loadLogo(logoSrc(it.logo))));
     const inks = ['#d2200f', '#15121a', '#5a2a86', '#b3170f', '#15121a'];
@@ -759,15 +871,18 @@ function card(v, sec) {
   else if (safeUrl(v.link)) { const a = el('a', 'vhit'); a.href = v.link; a.target = '_blank'; a.rel = 'noopener'; a.setAttribute('aria-label', 'Open ' + (v.title || 'link')); a.appendChild(el('span', 'vpill', folder ? 'Open folder' : 'Open')); p.appendChild(a); }
   c.appendChild(p);
   if (play && folder && safeUrl(v.link)) { const a = el('a', 'vlink', q > 1 ? 'View all ' + q + ' videos' : 'View folder'); a.href = v.link; a.target = '_blank'; a.rel = 'noopener'; c.appendChild(a); }
+  if (ADMIN) p.appendChild(cardTools(v));
   return c;
 }
 function emptyCard(s, sec) {
   const c = el('article', 'vcard');
   if (s.tag) { const h = el('div', 'vapp'); h.appendChild(el('span', null, s.tag)); c.appendChild(h); }
-  const p = el('div', 'vpanel empty'); p.style.aspectRatio = s.ratio || sec.ratio || '16/9'; p.setAttribute('aria-hidden', 'true'); p.appendChild(el('span', 'vicon ghost')); c.appendChild(p); return c;
+  const p = el('div', 'vpanel empty'); p.style.aspectRatio = s.ratio || sec.ratio || '16/9'; p.setAttribute('aria-hidden', 'true'); if (!ADMIN) p.appendChild(el('span', 'vicon ghost'));
+  else { p.removeAttribute('aria-hidden'); const b = el('button', 'vhit'); b.type = 'button'; b.appendChild(el('span', 'vpill', '+ Add video here')); b.onclick = () => openAdmin('videos', {section: sec.id, tag: s.tag}); p.appendChild(b); }
+  c.appendChild(p); return c;
 }
 function buildWork() {
-  const root = $('#work-root'); let shown = 0;
+  const root = $('#work-root'); root.textContent = ''; HIDDEN = new Set(); let shown = 0;
   (SITE.sections || []).forEach(sec => {
     const vids = (SITE.videos || []).filter(v => v.section === sec.id && v.show !== false);
     const slots = sec.slots || []; if (!vids.length && !slots.length) return; shown++;
@@ -777,11 +892,13 @@ function buildWork() {
       const order = [], by = {};
       vids.forEach(v => { const k = v.app || ''; if (!by[k]) { by[k] = []; order.push(k); } by[k].push(v); });
       const wrap = el('div', 'pairs');
-      order.slice(0, sec.maxApps || order.length).forEach(k => { const row = el('div', 'pair'); by[k].slice(0, sec.perApp).forEach(v => row.appendChild(card(v, sec))); wrap.appendChild(row); });
+      order.slice(sec.maxApps || order.length).forEach(k => by[k].forEach(v => HIDDEN.add(v.id)));
+      order.slice(0, sec.maxApps || order.length).forEach(k => { const row = el('div', 'pair'); by[k].slice(sec.perApp).forEach(v => HIDDEN.add(v.id)); by[k].slice(0, sec.perApp).forEach(v => row.appendChild(card(v, sec))); wrap.appendChild(row); });
+      if (ADMIN) wrap.appendChild(el('div', 'pair')).appendChild(emptyCard({}, sec));
       w.appendChild(wrap);
     } else {
       const g = el('div', 'grid' + (sec.single ? ' single' : ''));
-      if (vids.length) (sec.single ? vids.slice(0, 1) : vids).forEach(v => g.appendChild(card(v, sec))); else slots.forEach(sl => g.appendChild(emptyCard(sl, sec)));
+      if (vids.length) { if (sec.single) vids.slice(1).forEach(v => HIDDEN.add(v.id)); (sec.single ? vids.slice(0, 1) : vids).forEach(v => g.appendChild(card(v, sec))); if (ADMIN && !sec.single) g.appendChild(emptyCard({}, sec)); } else slots.forEach(sl => g.appendChild(emptyCard(sl, sec)));
       w.appendChild(g);
     }
     root.appendChild(w);
@@ -789,8 +906,161 @@ function buildWork() {
   if (!shown) root.appendChild(el('p', 'lede', 'Videos coming soon.'));
 }
 
+/* =====================  CONFIG (config.json) + OWNER MODE (#admin)  ===================== */
+const KIND = {'drive-file': 'Drive video (yahi play hoga)', 'drive-folder': 'Drive folder (Open folder button)', 'youtube': 'YouTube (yahi play hoga)', 'other': 'Link (Open button)'};
+const LS_TOKEN = 'ev_gh_token', LS_DRAFT = 'ev_draft';
+const lsGet = k => { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } };
+const lsSet = (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} };
+const str = (x, n) => String(x == null ? '' : x).slice(0, n);
+
+function sanitizeCfg(j) {
+  const out = {};
+  if (j && j.contact && typeof j.contact === 'object') out.contact = {whatsapp: str(j.contact.whatsapp, 30), instagram: str(j.contact.instagram, 120), email: str(j.contact.email, 120)};
+  if (j && Array.isArray(j.stats)) out.stats = j.stats.slice(0, 6).map(n => Number.isFinite(+n) ? Math.max(0, Math.min(999999, Math.round(+n))) : 0);
+  if (j && Array.isArray(j.videos)) out.videos = j.videos.filter(v => v && typeof v === 'object').slice(0, 200).map((v, i) => {
+    const o = {id: str(v.id || 'x' + i, 40), section: str(v.section, 40), title: str(v.title, 100), link: str(v.link, 600)};
+    if (v.app) o.app = str(v.app, 60); if (v.tag) o.tag = str(v.tag, 60); if (v.watch) o.watch = str(v.watch, 600);
+    if (+v.qty > 0) o.qty = Math.min(999, +v.qty | 0); if (v.show === false) o.show = false;
+    if (/^\d+(\.\d+)?\/\d+(\.\d+)?$/.test(String(v.ratio || ''))) o.ratio = String(v.ratio);
+    return o;
+  });
+  return out;
+}
+async function loadConfig() {
+  try {
+    const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 5000);
+    const r = await fetch('config.json?ts=' + Date.now(), {cache: 'no-store', signal: ctl.signal}); clearTimeout(t);
+    if (!r.ok) return null; return sanitizeCfg(await r.json());
+  } catch (e) { return null; }
+}
+function refresh() { renderStats(); renderContact(); buildWork(); if (ADMIN) renderAdminList(); saveDraft(); }
+function saveDraft() { if (ADMIN) lsSet(LS_DRAFT, JSON.stringify(CFG)); }
+
+let adminEls = null;
+function openAdmin(tab, pre) {
+  if (!ADMIN || !adminEls) return;
+  adminEls.box.hidden = false; showTab(tab || adminEls.tab || 'videos');
+  if (pre) { if (pre.section) { adminEls.sec.value = pre.section; syncFields(); } if (pre.tag) adminEls.tag.value = pre.tag; adminEls.title.focus(); }
+}
+const closeAdmin = () => { if (adminEls) adminEls.box.hidden = true; };
+function showTab(t) { adminEls.tab = t; document.querySelectorAll('.adm-tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === t)); document.querySelectorAll('.adm-pane').forEach(p => p.hidden = p.dataset.pane !== t); }
+function syncFields() { const sec = adminEls.sec.value; adminEls.appW.hidden = sec !== 'ai'; adminEls.tagW.hidden = sec !== 'edu-solar'; }
+function say(node, text, err) { node.textContent = text; node.classList.toggle('err', !!err); }
+
+function addVideo() {
+  const E = adminEls, sec = E.sec.value, title = E.title.value.trim(), link = E.link.value.trim();
+  if (!title) return say(E.msg, 'Video ka naam likho.', true);
+  if (!/^https?:\/\//i.test(link)) return say(E.msg, 'Link https:// se shuru hona chahiye. Drive ya YouTube ka poora link paste karo.', true);
+  const kind = parseLink(link).kind, v = {id: 'v' + Date.now().toString(36), section: sec, title: title.slice(0, 70), link};
+  if (sec === 'ai') v.app = E.app.value; if (sec === 'edu-solar') v.tag = E.tag.value;
+  const q = parseInt(E.qty.value, 10); if (q > 0) v.qty = q;
+  const def = (SITE.sections || []).find(s => s.id === sec); let note = '';
+  if (def && def.single && CFG.videos.some(x => x.section === sec)) { CFG.videos = CFG.videos.filter(x => x.section !== sec); note = ' Is section me sirf 1 video dikhta hai, isliye purana hata diya.'; }
+  CFG.videos.push(v); SITE.videos = CFG.videos;
+  E.title.value = ''; E.link.value = ''; E.qty.value = '';
+  say(E.msg, 'Video add ho gaya.' + note + (kind === 'other' ? ' Ye Drive ya YouTube link nahi lag raha, card pe sirf Open button aayega.' : '') + ' Ab Publish tab se live karo.');
+  refresh();
+}
+function removeVideo(id) { CFG.videos = CFG.videos.filter(v => v.id !== id); SITE.videos = CFG.videos; refresh(); }
+function moveVideo(id, dir) {
+  const a = CFG.videos, i = a.findIndex(v => v.id === id); if (i < 0) return;
+  const sec = a[i].section; let j = i + dir; while (j >= 0 && j < a.length && a[j].section !== sec) j += dir;
+  if (j < 0 || j >= a.length) return; [a[i], a[j]] = [a[j], a[i]]; refresh();
+}
+function cardTools(v) {
+  const t = el('div', 'card-tools'), mv = el('div', 'mv');
+  const l = el('button', null, '\u2039'), r = el('button', null, '\u203A'); l.type = r.type = 'button'; l.setAttribute('aria-label', 'Pehle karo'); r.setAttribute('aria-label', 'Baad me karo');
+  l.onclick = () => moveVideo(v.id, -1); r.onclick = () => moveVideo(v.id, 1); mv.append(l, r);
+  const del = el('button', 'del', 'Delete'); del.type = 'button'; let armed = 0;
+  del.onclick = () => { if (!armed) { del.textContent = 'Pakka? Delete'; del.classList.add('sure'); armed = setTimeout(() => { armed = 0; del.textContent = 'Delete'; del.classList.remove('sure'); }, 3000); } else { clearTimeout(armed); removeVideo(v.id); } };
+  t.append(mv, del); return t;
+}
+function renderAdminList() {
+  const list = adminEls.list; list.textContent = '';
+  (SITE.sections || []).forEach(s => {
+    const vs = CFG.videos.filter(v => v.section === s.id); if (!vs.length) return;
+    list.appendChild(el('h4', null, s.title));
+    vs.forEach(v => {
+      const row = el('div', 'a-row'), meta = el('div', 'a-meta'); meta.appendChild(el('b', null, v.title || 'Untitled'));
+      meta.appendChild(el('small', null, [v.app || v.tag || '', KIND[parseLink(v.link).kind], HIDDEN.has(v.id) ? 'chhupa hai (limit)' : ''].filter(Boolean).join(' - ')));
+      const del = el('button', 'adm-btn', 'Delete'); del.type = 'button'; let armed = 0;
+      del.onclick = () => { if (!armed) { del.textContent = 'Pakka?'; armed = setTimeout(() => { armed = 0; del.textContent = 'Delete'; }, 3000); } else { clearTimeout(armed); removeVideo(v.id); } };
+      row.append(meta, del); list.appendChild(row);
+    });
+  });
+  if (!list.children.length) list.appendChild(el('p', 'adm-help', 'Abhi koi video add nahi hua.'));
+}
+
+function ghInfo() {
+  const g = SITE.github || {}; if (g.owner && g.repo) return {owner: g.owner, repo: g.repo};
+  const h = location.hostname; if (!/\.github\.io$/i.test(h)) return null;
+  const owner = h.split('.')[0]; return {owner, repo: location.pathname.split('/').filter(Boolean)[0] || owner + '.github.io'};
+}
+const b64 = s => btoa(unescape(encodeURIComponent(s)));
+const cfgText = () => JSON.stringify({version: 1, updated: new Date().toISOString(), contact: CFG.contact, stats: CFG.stats, videos: CFG.videos}, null, 2);
+function ghErr(status) {
+  const m = {401: 'Token galat hai ya expire ho gaya. Naya token banao.', 403: 'Is token ko repository me likhne ki permission nahi hai. Token me Contents: Read and write do.', 404: 'Repository nahi mili ya token ko uski permission nahi hai. Token me sahi repository select karo.', 422: 'GitHub ne save nahi kiya. Ek baar phir try karo.'};
+  return new Error(m[status] || ('GitHub error ' + status + '. Ek baar phir try karo.'));
+}
+async function publish() {
+  const E = adminEls, info = ghInfo(), token = E.token.value.trim();
+  if (!info) return say(E.pmsg, 'Ye tareeka sirf live GitHub site pe chalta hai. Yaha "config.json download" wala tareeka use karo.', true);
+  if (!token) return say(E.pmsg, 'Pehle GitHub token paste karo.', true);
+  lsSet(LS_TOKEN, token); E.pub.disabled = true; say(E.pmsg, 'Publish ho raha hai...');
+  const url = 'https://api.github.com/repos/' + info.owner + '/' + info.repo + '/contents/config.json';
+  const H = {Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'};
+  try {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      let sha; const g = await fetch(url, {headers: H, cache: 'no-store'});
+      if (g.status === 200) sha = (await g.json()).sha; else if (g.status !== 404) throw ghErr(g.status);
+      const body = {message: 'Update portfolio content', content: b64(cfgText())}; if (sha) body.sha = sha;
+      const r = await fetch(url, {method: 'PUT', headers: Object.assign({'Content-Type': 'application/json'}, H), body: JSON.stringify(body)});
+      if (r.ok) { lsSet(LS_DRAFT, null); say(E.pmsg, 'Publish ho gaya. Website update hone me 1-2 minute lagte hain. Phir site refresh karke dekho.'); return; }
+      if (r.status === 409 && attempt === 0) continue;
+      throw ghErr(r.status);
+    }
+  } catch (e) { say(E.pmsg, e && e.message && !/fetch|network/i.test(e.message) ? e.message : 'Internet ya connection ki problem hai. Ek baar phir try karo.', true); }
+  finally { E.pub.disabled = false; }
+}
+
+function initAdmin() {
+  if (!ADMIN) return;
+  const g = id => document.getElementById(id);
+  const E = adminEls = {box: g('adm'), sec: g('a-sec'), app: g('a-app'), tag: g('a-tag'), appW: g('a-app-w'), tagW: g('a-tag-w'), title: g('a-title'), link: g('a-link'), qty: g('a-qty'), msg: g('a-msg'), list: g('a-list'), token: g('p-token'), pub: g('p-pub'), pmsg: g('p-msg'), tab: 'videos'};
+  const opt = (v, t) => Object.assign(document.createElement('option'), {value: v, textContent: t});
+  (SITE.sections || []).forEach(s => E.sec.appendChild(opt(s.id, s.title)));
+  (SITE.apps || []).forEach(a => E.app.appendChild(opt(a.name, a.name)));
+  E.sec.onchange = syncFields; syncFields();
+  g('adm-pill').hidden = false; g('adm-pill').onclick = () => openAdmin();
+  g('adm-x').onclick = closeAdmin; E.box.addEventListener('click', e => { if (e.target === E.box) closeAdmin(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeAdmin(); });
+  document.querySelectorAll('.adm-tabs button').forEach(b => b.onclick = () => showTab(b.dataset.tab));
+  g('a-add').onclick = addVideo;
+  // details
+  const wa = g('d-wa'), ig = g('d-ig'), mail = g('d-mail'), prev = g('d-wa-prev');
+  const waPrev = () => { const u = waUrl(wa.value); prev.textContent = wa.value.trim() ? (u ? 'Button ye link kholega: ' + u : 'Number poora nahi lag raha. 10 digit ka number likho (91 apne aap lag jayega).') : 'Number likhoge tab WhatsApp button site pe dikhega.'; };
+  const light = () => { renderContact(); renderStats(); saveDraft(); };
+  wa.oninput = () => { CFG.contact.whatsapp = wa.value; waPrev(); light(); };
+  ig.oninput = () => { CFG.contact.instagram = ig.value; light(); };
+  mail.oninput = () => { CFG.contact.email = mail.value; light(); };
+  const st = g('d-stats'); (SITE.stats || []).forEach((s, i) => { const lab = el('label', null, s.label), inp = document.createElement('input'); inp.inputMode = 'numeric'; inp.id = 'd-st' + i; inp.oninput = () => { CFG.stats[i] = parseInt(inp.value, 10) || 0; light(); }; lab.appendChild(inp); st.appendChild(lab); });
+  E.fillDetails = () => { wa.value = CFG.contact.whatsapp || ''; ig.value = CFG.contact.instagram || ''; mail.value = CFG.contact.email || ''; (SITE.stats || []).forEach((s, i) => { g('d-st' + i).value = CFG.stats[i] != null ? CFG.stats[i] : s.n; }); waPrev(); };
+  E.fillDetails();
+  // publish
+  E.token.value = lsGet(LS_TOKEN);
+  E.pub.onclick = publish;
+  g('p-forget').onclick = () => { lsSet(LS_TOKEN, null); E.token.value = ''; say(E.pmsg, 'Token is browser se hata diya.'); };
+  g('p-dl').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([cfgText()], {type: 'application/json'})); a.download = 'config.json'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); say(E.pmsg, 'config.json download ho gaya. Ab ise GitHub repository me upload karo.'); };
+  renderAdminList(); openAdmin('videos');
+}
+
 /* ---------- boot ---------- */
-fillContent(); initScroll(); initHero(); initTools(); buildWork();
+fillContent(); initScroll(); initHero(); initTools(); initAdmin(); buildWork();
+loadConfig().then(j => {
+  if (j) CFG = Object.assign(defaultsCfg(), j);
+  if (ADMIN) { try { const d = JSON.parse(lsGet(LS_DRAFT)); if (d && Array.isArray(d.videos)) { CFG = Object.assign(defaultsCfg(), sanitizeCfg(d)); say(adminEls.msg, 'Aapka pichla unsaved draft wapas aa gaya.'); } } catch (e) {} }
+  SITE.videos = CFG.videos; if (ADMIN && adminEls.fillDetails) adminEls.fillDetails(); refresh();
+});
 })();
 </script>
 </body>
