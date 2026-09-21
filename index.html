@@ -59,13 +59,13 @@ window.SITE = {
   ],
 
   /* Sections - jis order me likhe hain usi order me dikhenge.
-     slots = jab tak video nahi hai tab tak dikhne wale khali cards.
+     slots = jab tak video nahi hai tab tak dikhne wale khali cards ({} = 1 card, jitne {} utne cards).
      perApp: 2 -> har app ke max 2 video   |  single: true -> sirf 1 bada video */
   sections: [
     {id: 'ai',        title: 'AI videos of apps',                perApp: 2, maxApps: 3, ratio: '16/9'},
-    {id: 'edu-solar', title: 'Educational & solar panel videos', ratio: '16/9', slots: [{tag: 'Educational'}, {tag: 'Solar panel'}]},
-    {id: 'youtube',   title: 'YouTube video',                    single: true, ratio: '16/9', slots: [{}]},
-    {id: 'other',     title: 'Other videos',                     ratio: '16/9', slots: [{}, {}, {}]}
+    {id: 'edu-solar', title: 'Educational & solar panel videos', ratio: '16/9', slots: [{}, {}, {}]},
+    {id: 'youtube',   title: 'YouTube videos',                   ratio: '16/9', slots: [{}, {}, {}]},
+    {id: 'other',     title: 'Other videos',                     ratio: '16/9', slots: [{}, {}, {}, {}, {}, {}]}
   ],
 
   /* Videos. link me Google Drive ya YouTube ka link seedha paste karo.
@@ -1056,6 +1056,8 @@ function initAdmin() {
 
 /* ---------- boot ---------- */
 fillContent(); initScroll(); initHero(); initTools(); initAdmin(); buildWork();
+// address bar me sirf #admin jodne se page reload nahi hota - isliye khud reload karwao
+addEventListener('hashchange', () => { if (/(^|[#&])admin\b/.test(location.hash) !== ADMIN) location.reload(); });
 loadConfig().then(j => {
   if (j) CFG = Object.assign(defaultsCfg(), j);
   if (ADMIN) { try { const d = JSON.parse(lsGet(LS_DRAFT)); if (d && Array.isArray(d.videos)) { CFG = Object.assign(defaultsCfg(), sanitizeCfg(d)); say(adminEls.msg, 'Aapka pichla unsaved draft wapas aa gaya.'); } } catch (e) {} }
